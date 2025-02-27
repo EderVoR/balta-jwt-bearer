@@ -6,11 +6,33 @@ namespace JwtStore.Core.AccountContext.ValueObjects
 {
 	public class Password : ValueObject
 	{
+		#region Propriedade
+
 		public const string Valid = "abcdefghijklnopqrstuvxyzwABCDEFGHIJKLMNOPQRSTUVXYZ0123456789";
 		public const string Special = "!@#$%&*(){}[];";
 
 		public string Hash { get; } = string.Empty;
 		public string ResetCode { get; } = Guid.NewGuid().ToString()[..8].ToUpper();
+
+		#endregion
+
+		#region Construtor
+
+		protected Password()
+		{   
+        }
+
+        public Password(string? text = null)
+        {
+			if (string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text))
+				text = Generate();
+
+			Hash = Hashing(text);
+        }
+
+		#endregion
+
+		#region Métodos
 
 		private static string Generate(short length = 16, bool incluseSpecialChars = true,
 			bool upperCase = false)
@@ -64,5 +86,7 @@ namespace JwtStore.Core.AccountContext.ValueObjects
 
 			return keyToChech.SequenceEqual(key);
 		}
-    }
+
+		#endregion
+	}
 }

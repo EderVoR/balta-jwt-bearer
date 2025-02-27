@@ -6,7 +6,9 @@ namespace JwtStore.Core.AccountContext.ValueObjects
 {
 	public partial class Email : ValueObject
 	{
-        public Email(string adress)
+		#region Construtor
+
+		public Email(string adress)
         {
             if (string.IsNullOrEmpty(adress))
                 throw new Exception("Email inválido");
@@ -20,13 +22,25 @@ namespace JwtStore.Core.AccountContext.ValueObjects
                 throw new Exception("Email inválido");
         }
 
-        private const string Pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w)*\.\w+([-.]\w+)*$";
+        protected Email()
+        {
+        }
+
+		#endregion
+
+		#region Propriedades
+
+		private const string Pattern = @"^\w+([-+.']\w+)*@\w+([-.]\w)*\.\w+([-.]\w+)*$";
 
         public string Adress { get; }
         public string Hash => Adress.ToBase64();
         public Verification Verification { get; private set; } = new();
 
-        public void ResentVerification()
+		#endregion
+
+		#region Métodos
+
+		public void ResentVerification()
             => Verification = new Verification();
 
         public static implicit operator string(Email email)
@@ -37,6 +51,8 @@ namespace JwtStore.Core.AccountContext.ValueObjects
 
         public override string ToString()
             => Adress;
+
+		#endregion
 
 		[GeneratedRegex(Pattern)]
         private static partial Regex EmailRegex();
