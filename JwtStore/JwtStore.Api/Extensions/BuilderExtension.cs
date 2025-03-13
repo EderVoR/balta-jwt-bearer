@@ -3,6 +3,7 @@ using JwtStore.Infra.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace JwtStore.Api.Extensions
@@ -48,6 +49,11 @@ namespace JwtStore.Api.Extensions
                     };
                 });
             builder.Services.AddAuthorization();
+        }
+
+        public static void AddMediator(this WebApplicationBuilder builder)
+        {
+            builder.Services.AddMediatR(x => x.RegisterServicesFromAssembly(typeof(Configuration).Assembly));
         }
     }
 }
