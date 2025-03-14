@@ -21,6 +21,13 @@ namespace JwtStore.Api.Extensions
                 .GetSection("Secrets").GetValue<string>("JwtPrivateKey") ?? string.Empty;
             Configuration.Secrets.PasswordSaltKey = builder.Configuration
                 .GetSection("Secrets").GetValue<string>("PasswordSaltKey") ?? string.Empty;
+
+            Configuration.SendGrid.ApiKey = builder.Configuration
+                .GetSection("Sendgrid").GetValue<string>("ApiKey") ?? string.Empty;
+            Configuration.Email.DefaultFromEmail = builder.Configuration
+                .GetSection("Email").GetValue<string>("DefaultFromEmail") ?? string.Empty;
+            Configuration.Email.DefaultFromName = builder.Configuration
+                .GetSection("Email").GetValue<string>("DefaultFromName") ?? string.Empty;
         }
 
         public static void AddDatabase(this WebApplicationBuilder builder)
