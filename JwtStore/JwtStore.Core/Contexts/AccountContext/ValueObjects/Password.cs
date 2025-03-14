@@ -87,6 +87,9 @@ namespace JwtStore.Core.Contexts.AccountContext.ValueObjects
             return keyToChech.SequenceEqual(key);
         }
 
-        #endregion
-    }
+        public bool Challenge(string plainTextPassword)
+            => Verify(Hash, plainTextPassword);
+
+		#endregion
+	}
 }
