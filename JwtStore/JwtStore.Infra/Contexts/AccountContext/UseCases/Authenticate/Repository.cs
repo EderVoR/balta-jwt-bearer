@@ -15,6 +15,7 @@ namespace JwtStore.Infra.Contexts.AccountContext.UseCases.Authenticate
         public async Task<User?> GetUserByEmailAsync(string email, CancellationToken cancellationToken) => 
 			await _context
 				.Users
+				.Include(r => r.Roles)
 				.AsNoTracking()
 				.FirstOrDefaultAsync(x => x.Email.Adress == email, cancellationToken);
 	}

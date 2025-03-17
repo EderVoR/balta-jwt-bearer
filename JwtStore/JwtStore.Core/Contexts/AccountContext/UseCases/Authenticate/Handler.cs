@@ -73,7 +73,7 @@ namespace JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate
 					Id = user.Id.ToString(),
 					Name = user.Name,
 					Email = user.Email,
-					Roles = []
+					Roles = user.Roles.Select(c => c.Name).ToArray(),
 				};
 
 				return new Response(string.Empty, data);

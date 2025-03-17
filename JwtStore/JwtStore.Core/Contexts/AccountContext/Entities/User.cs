@@ -12,12 +12,13 @@ namespace JwtStore.Core.Contexts.AccountContext.Entities
         public Email Email { get; private set; } = null!;
         public Password Password { get; private set; } = null!;
         public string Image { get; private set; } = string.Empty;
+        public List<Role> Roles { get; set; } = new();
 
-		#endregion
+        #endregion
 
-		#region Construtor
+        #region Construtor
 
-		public User(string name, string email, Password password)
+        public User(string name, string email, Password password)
 		{
 			Email = email;
 			Password = password;
